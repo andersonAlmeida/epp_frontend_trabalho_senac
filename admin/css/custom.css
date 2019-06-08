@@ -1,0 +1,10 @@
+/* your styles go here */
+
+.transition {
+    position: relative;
+}
+
+.animated {
+    position: absolute;
+    top: 0;
+}
