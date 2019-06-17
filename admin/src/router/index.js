@@ -93,8 +93,13 @@ export default new Router({
           component: Atracoes
         },
         {
+          path: '/atracoes/:id',
+          name: 'Editar atração',
+          component: NovaAtracao
+        },
+        {
           path: '/atracoes/novo',
-          name: 'nova atração',
+          name: 'Nova atração',
           component: NovaAtracao
         },
       ]
@@ -106,7 +111,7 @@ export default new Router({
       children: [
         {
           path: '/categorias',
-          name: 'Categorias',
+          name: 'Lista categorias',
           component: Categorias
         },
         {
@@ -118,7 +123,6 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'Login',
       component: {
         render(c) { return c('router-view') }
       },
@@ -147,11 +151,6 @@ export default new Router({
           path: '500',
           name: 'Page500',
           component: Page500
-        },
-        {
-          path: 'login',
-          name: 'Login',
-          component: Login
         },
         {
           path: 'register',

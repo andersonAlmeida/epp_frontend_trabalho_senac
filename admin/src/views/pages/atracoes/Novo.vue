@@ -17,8 +17,7 @@
 				<b-form-group>
 					<label for="categoria">Categoria</label>
 					<b-form-select id="categoria" 
-						:plain="false"
-                  		:options="[1,2,3,4,5,6,7,8,9,10,11,12]"></b-form-select>
+						:plain="false" :options="[1,2,3,4,5,6,7,8,9,10,11,12]"></b-form-select>
 				</b-form-group>
 			</b-col>
 		  </b-row>
@@ -60,7 +59,7 @@
           </b-row>
           <b-row>
 			  <b-col sm="12">
-			  	<b-button type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Salvar</b-button>
+			  	<b-button type="submit" size="sm" variant="primary" v-on:click.prevent="salvaAtracao"><i class="fa fa-dot-circle-o"></i> Salvar</b-button>
 			  </b-col>
           </b-row>
         </b-card>
@@ -70,16 +69,34 @@
 </template>
 
 <script>
+import { getAtracoes, getData } from "../../../helpers/integracao";
+
 export default {
   name: "nova_atracao",
   data() {
     return {
-      selected: [], // Must be an array reference!
-      show: true
+      categorias: []
     };
   },
+  created() {
+    this.buscaCategorias();
+  },
   methods: {
-    click() {
+    buscaAtracao() {
+      let atracoes = getAtracao();
+
+      atracoes.then(res => {
+        this.items = res;
+      });
+    },
+    buscaCategorias() {
+      let atracoes = getAtracoes();
+
+      atracoes.then(res => {
+        this.items = res;
+      });
+    },
+    salvaAtracao() {
       console.log('salva a nova atração');
     }
   }

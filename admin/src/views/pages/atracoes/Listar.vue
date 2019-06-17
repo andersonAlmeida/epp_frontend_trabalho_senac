@@ -3,57 +3,64 @@
     <h2>Atrações</h2>
     <b-row>
       <b-col lg="12">
-        <c-table :table-data="items" :per-page=10 striped caption="<i class='fa fa-align-justify'></i>"></c-table>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <i class="fa fa-align-justify"></i> Striped Table
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive-sm">
+              <table class="table b-table table-striped">
+                <thead>
+                  <th>Nome</th>
+                  <th>Categoria</th>
+                  <th>Editar</th>
+                </thead>
+                <tbody>
+                  <tr v-bind="items" v-for="item in items">
+                    <td>{{item ? item.nome : ''}}</td>
+                    <td>{{item ? item.categoria.nome : ''}}</td>
+                    <td>                      
+                      <router-link :to="{ name: 'Editar atração', params: {id: item.cod_atracao}}" class="btn btn-primary"><i class="fa fa-pencil"></i></router-link>
+                      <button class="btn btn-danger">
+                        <i class="fa fa-close"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>        
       </b-col>
-    </b-row><!--/.row-->
+    </b-row>
+    <!--/.row-->
   </div>
 </template>
 
 <script>
-import { shuffleArray } from '@/shared/utils'
-import cTable from '../../base/Table'
-
-const someData = () => [
-  {nome: 'Samppa Nori', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>', _rowVariant: 'success'},
-  {nome: 'Estavan Lykos', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>', _rowVariant: 'danger'},
-  {nome: 'Chetan Mohamed', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>', _rowVariant: 'info'},
-  {nome: 'Derick Maximinus', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Friderik Dávid', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Yiorgos Avraamu', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Avram Tarasios', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Quintin Ed', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Enéas Kwadwo', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Agapetus Tadeáš', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Carwyn Fachtna', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Nehemiah Tatius', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Ebbe Gemariah', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Eustorgios Amulius', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Leopold Gáspár', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Pompeius René', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Paĉjo Jadon', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Micheal Mercurius', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Ganesha Dubhghall', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Hiroto Šimun', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Vishnu Serghei', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Zbyněk Phoibos', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Einar Randall', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Félix Troels', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'},
-  {nome: 'Aulus Agmundr', categoria: 'Parques', codigo: 1, html: '<button>Editar</button>'}
-]
+// import cTable from '../../base/Table'
+import { getAtracoes, getData } from "../../../helpers/integracao";
 
 export default {
-  name: 'atracoes',
-  components: {cTable},
+  name: "atracoes",
   data: () => {
     return {
-      items: someData,
-      itemsArray: someData(),
-      fields: [
-        {key: 'Nome', label: 'Atração'},
-        {key: 'Categoria'},
-        {key: 'Editar'}        
-      ],
+      items: null
+    };
+  },
+  created() {
+    this.buscaAtracoes();
+  },
+  methods: {
+    buscaAtracoes() {
+      let atracoes = getAtracoes();
+
+      atracoes.then(res => {
+        this.items = res;
+      });
     }
   }
-}
+};
 </script>
