@@ -41,7 +41,7 @@
 
 <script>
 // import cTable from '../../base/Table'
-import { getAtracoes, getData } from "../../../helpers/integracao";
+import { getAtracoes, getData, setHeaders } from "../../../helpers/integracao";
 
 export default {
   name: "atracoes",
@@ -50,11 +50,12 @@ export default {
       items: null
     };
   },
-  created() {
+  created() {    
     this.buscaAtracoes();
   },
   methods: {
     buscaAtracoes() {
+      setHeaders();
       let atracoes = getAtracoes();
 
       atracoes.then(res => {
