@@ -30,6 +30,8 @@ const integracao = {
 	getCategorias: () => {
 		return integracao.getData(integracao.api + "/categoria", integracao.options);
 	}
+
+
 };
 
 module.exports = integracao;
