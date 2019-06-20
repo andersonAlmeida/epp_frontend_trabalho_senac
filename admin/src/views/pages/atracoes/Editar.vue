@@ -10,16 +10,16 @@
             <b-col sm="6">
               <b-form-group>
                 <label for="nome">Nome</label>
-                <b-form-input type="text" id="nome"></b-form-input>
+                <b-form-input type="text" id="nome" :value="atracao.nome"></b-form-input>
               </b-form-group>
             </b-col>
             <b-col sm="6">
               <b-form-group>
                 <label for="categoria">Categoria</label>
-                <select name="categoria" id="categoria" class="form-control custom-select">
+                <select name="categoria" id="categoria" class="form-control custom-select" :value="atracao.cod_atracao_categoria">
                   <option value>Selecione</option>
                   <option
-                    :value="item.cod_atracao_categoria"                    
+                    :value="item.cod_atracao_categoria"
                     v-for="item in categorias"
                   >{{item.nome}}</option>
                 </select>
@@ -28,23 +28,23 @@
           </b-row>
           <b-form-group>
             <label for="descricao">Descrição</label>
-            <b-form-textarea type="text" id="descricao" rows="10"></b-form-textarea>
+            <b-form-textarea type="text" id="descricao" rows="10" :value="atracao.descricao"></b-form-textarea>
           </b-form-group>
           <b-form-group>
             <label for="endereco">Endereço</label>
-            <b-form-input type="text" id="endereco"></b-form-input>
+            <b-form-input type="text" id="endereco" :value="atracao.endereco"></b-form-input>
           </b-form-group>
           <b-row>
             <b-col sm="4">
               <b-form-group>
                 <label for="inicio">Data de início</label>
-                <b-form-input type="date" id="inicio"></b-form-input>
+                <b-form-input type="date" id="inicio" :value="atracao.data_inicio"></b-form-input>
               </b-form-group>
             </b-col>
             <b-col sm="4">
               <b-form-group>
                 <label for="final">Data de encerramento</label>
-                <b-form-input type="date" id="final"></b-form-input>
+                <b-form-input type="date" id="final" :value="atracao.data_fim"></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
@@ -52,13 +52,13 @@
             <b-col sm="4">
               <b-form-group>
                 <label for="lat">Lat</label>
-                <b-form-input type="text" id="lat"></b-form-input>
+                <b-form-input type="text" id="lat" :value="atracao.lat"></b-form-input>
               </b-form-group>
             </b-col>
             <b-col sm="4">
               <b-form-group>
                 <label for="lng">Lng</label>
-                <b-form-input type="text" id="lng"></b-form-input>
+                <b-form-input type="text" id="lng" :value="atracao.lng"></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
@@ -85,7 +85,7 @@
 
 <script>
 import {
-  getAtracoes,
+  getAtracao,
   getData,
   getCategorias,
   setHeaders
@@ -95,22 +95,22 @@ export default {
   name: "nova_atracao",
   data() {
     return {
+      atracao: null,
       categorias: null
     };
   },
   created() {
     this.buscaCategorias();
+    this.buscaAtracao();
   },
   methods: {
-    // pegaParametrosUrl() {
-    // 	console.log(this.$router);
-    // },
     buscaAtracao() {
       setHeaders();
-      let atracoes = getAtracao();
+      let id = this.$route.params.id,
+        atracao = getAtracao(id);
 
-      atracoes.then(res => {
-        this.items = res;
+      atracao.then(res => {
+        this.atracao = res;
       });
     },
     buscaCategorias() {

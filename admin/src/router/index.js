@@ -56,6 +56,7 @@ const Register = () => import('@/views/pages/Register')
 const Atracoes = () => import('@/views/pages/atracoes/Listar')
 const Categorias = () => import('@/views/pages/categorias/Listar')
 const NovaAtracao = () => import('@/views/pages/atracoes/Novo')
+const EditarAtracao = () => import('@/views/pages/atracoes/Editar')
 const NovaCategoria = () => import('@/views/pages/categorias/Novo')
 
 // Users
@@ -95,7 +96,7 @@ export default new Router({
         {
           path: '/atracoes/:id',
           name: 'Editar atração',
-          component: NovaAtracao
+          component: EditarAtracao
         },
         {
           path: '/atracoes/novo',
