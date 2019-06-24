@@ -23,7 +23,7 @@
                     <td>{{item ? item.categoria.nome : ''}}</td>
                     <td>                      
                       <router-link :to="{ name: 'Editar atração', params: {id: item.cod_atracao}}" class="btn btn-primary"><i class="fa fa-pencil"></i></router-link>
-                      <button class="btn btn-danger">
+                      <button class="btn btn-danger" :id="item.cod_atracao" @click="removeAtracao">
                         <i class="fa fa-close"></i>
                       </button>
                     </td>
@@ -41,7 +41,7 @@
 
 <script>
 // import cTable from '../../base/Table'
-import { getAtracoes, getData, setHeaders } from "../../../helpers/integracao";
+import api from "../../../helpers/integracao";
 
 export default {
   name: "atracoes",
@@ -54,13 +54,21 @@ export default {
     this.buscaAtracoes();
   },
   methods: {
-    buscaAtracoes() {
-      setHeaders();
-      let atracoes = getAtracoes();
+    buscaAtracoes() {      
+      api.setHeaders();
+      let atracoes = api.getAtracoes();
 
       atracoes.then(res => {
         this.items = res;
       });
+    },
+
+    removeAtracao(e) {
+      if( confirm("Você tem certeza que deseja excluir está atração?") ) {        
+        api.setHeaders("DELETE");
+        api.deletaAtracao(e.currentTarget.id);
+        // this.$router.go();
+      }
     }
   }
 };

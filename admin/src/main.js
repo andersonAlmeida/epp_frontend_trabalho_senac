@@ -15,18 +15,18 @@ import router from './router'
 Vue.use(BootstrapVue);
 
 // verifica se o usuário está logado senão direciona para a página de login
-// router.beforeEach((to, from, next) => {
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ['/login', '/register'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user');
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('epp_adm_tk');
 
-//   if (authRequired && !loggedIn) {
-//     return next('/login');
-//   }
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
 
-//   next();
-// })
+  next();
+})
 
 /* eslint-disable no-new */
 new Vue({

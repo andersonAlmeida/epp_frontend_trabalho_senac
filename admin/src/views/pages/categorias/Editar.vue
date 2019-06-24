@@ -5,12 +5,12 @@
         <b-card>
           <form
             action
-            @submit.prevent="salvaCategoria"
+            @submit.prevent="atualizaCategoria"
             method="post"
             enctype="multipart/form-data"
           >
             <div slot="header">
-              <strong>Nova Categoria</strong>
+              <strong>Editar Categoria</strong>
             </div>
             <b-row>
               <b-col sm="6">
@@ -20,6 +20,8 @@
                     type="text"
                     id="nome"
                     name="nome"
+                    :value="categoria.nome"
+                    v-model="categoria.nome"
                   ></b-form-input>
                 </b-form-group>
               </b-col>
@@ -42,27 +44,37 @@
 import api from "../../../helpers/integracao";
 
 export default {
-  name: "nova_categoria",
+  name: "editar categoria",
   data() {
     return {
       categoria: null
     };
   },
+  created() {
+    this.buscaCategoria();
+  },
   methods: {
-    salvaCategoria(e) {
+    buscaCategoria() {
+      api.setHeaders();
+      let id = this.$route.params.id,
+        cat = api.getCategoria(id);
+
+      cat.then(res => {
+        this.categoria = res;
+      });
+    },
+    atualizaCategoria(e) {
       let values = {};
 
       e.currentTarget
-        .querySelectorAll("input")
+        .querySelectorAll("input, textarea, select")
         .forEach(elm => {
-            values[elm.name] = elm.value;
+          values[elm.name] = elm.value;
         });
 
-      api.setHeaders("POST", values);
-
-      if (api.salvaCategoria()) {
-        alert("Salvo com sucesso!");
-        this.$router.push("/categorias");
+      api.setHeaders("PUT", values);
+      if( api.updateCategoria(this.$route.params.id) ) {          
+          this.$router.push('/categorias');
       }
     }
   }
