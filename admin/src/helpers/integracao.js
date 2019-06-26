@@ -1,6 +1,6 @@
 const integracao = {
-	// api: "https://epp2019.herokuapp.com/cms",
-	api: "http://localhost:8000/cms",
+	api: "https://epp2019.herokuapp.com/cms",
+	// api: "http://localhost:8000/cms",
 	token: localStorage.getItem("epp_adm_tk"),
 	options: null,
 
@@ -24,13 +24,28 @@ const integracao = {
 
 	connect: (url, headers = {}) => {
 		return fetch(url, headers).then(x => {
-			// se não é autorizado 
-			if( x.status === 401 ) {
-				// limpa o token salvo se existir
-				localStorage.removeItem('user');
-				// redireciona para a página de login
-				this.$router.push("/login");
+
+			switch( x.status ) {
+				// se não é autorizado 
+				case 401:
+					// limpa o token salvo se existir
+					localStorage.removeItem("epp_adm_tk");
+					localStorage.removeItem("epp_adm_name");
+					localStorage.removeItem("epp_adm_email");
+		
+					// redireciona para a página de login
+					window.location = "/login";
+				break
+
+				case 400:
+					window.location = "/400";
+				break;
+
+				case 500:
+					window.location = "/500";
+				break;
 			}
+			
 			return x.json()
 		}).catch(error => console.log('An error ocurred in your fetch request: ' + error.message));
 	},
