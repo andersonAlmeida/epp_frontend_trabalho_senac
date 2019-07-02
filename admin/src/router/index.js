@@ -90,7 +90,6 @@ export default new Router({
     },
     {
       path: '/pages',
-      redirect: '/pages/404',
       name: 'Pages',
       component: {
         render(c) { return c('router-view') }
@@ -112,6 +111,11 @@ export default new Router({
           component: Register
         }
       ]
+    },
+    {
+      path: '*',
+      name: 'Page404',
+      component: Page404
     }
   ]
 });
