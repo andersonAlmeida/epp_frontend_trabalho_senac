@@ -1,0 +1,183 @@
+input
+    border: none
+    outline: none
+    &[type='radio'], &[type='checkbox']
+        display: none
+        &:checked + .opcao, &:checked + .nota, &:checked + .nao_aplica
+            background-color: $amarelo
+            border-color: transparent
+            color: $preto
+    &[type='range']
+        appearance: none
+        width: 100%
+        margin-top: res(70)
+        &::-webkit-slider-thumb
+            appearance: none
+            display: block
+            border: 2px solid $amarelo
+            background-color: $amarelo
+            box-shadow: 0 0 0 2vw $branco inset
+            width: res(69)
+            height: @width
+            border-radius: res(69)
+            transform: translateY(-50%)
+        &::-webkit-slider-runnable-track
+            height 2px
+            width: 100%
+            background-color: $cinza1
+            position: relative
+            display: block
+.field
+    margin-bottom: res(100)
+    width: 100%
+    .wrap_ipt
+        position relative
+        width: 100%
+    &.w250
+        width: res(250)
+    &.nascimento
+        .wrap_ipt
+            justify-self: center
+            margin-left: auto
+            margin-right: auto
+            width: res(260)
+    .icon
+        display: block
+        position: absolute
+        z-index 0
+        right 0
+        top: 0
+        transform: scale(.8)
+        &.lapis
+            sprite($lapis)
+    label
+        text-transform: uppercase
+        font-size: res(22.68)
+        letter-spacing: letterSpacing(50)
+        opacity .5
+        font-weight: 500
+        margin-bottom: res(20)
+    input, select, option
+        text-align: center
+        width: 100%
+        background: none
+        font-size: res(27.54)
+        color: $preto
+        line-height: calc(45.36 / 27.54)
+        border: none
+        padding: 0
+        border-bottom: 1px solid rgba(0,0,0,.15)
+        margin-bottom: res(10)
+        display: inline-block
+        position relative
+        z-index 1
+        text-align-last: center
+    [type='date']
+        width: res(260)
+        display block
+        margin: 0 auto
+    .apoio
+        font-size: res(19.44)
+        opacity .7
+        letter-spacing: letterSpacing(50)
+
+
+label
+    display: inline-block
+    &.opcao
+        border 1px dashed $cinza1
+        font-size: res(30.6)
+        padding: res(30) res(35)
+        width: res(250)
+        margin-bottom: res(30)
+        background-color: transparent
+        transition: background-color .2s, border-color .2s
+    &.nota
+        float: left
+        width: res(45)
+        border: 1px solid $cinza1
+        font-size: res(30)
+        font-weight: 500
+        padding: res(22) 0
+        margin-left: res(5)
+        pointer-events: none
+        &.focus
+            background-color: $amarelo
+    &.nao_aplica
+        border: 1px solid $cinza1
+        padding: res(15)
+        color: $cinza1
+        position: absolute
+        bottom: 100%
+        right: 0
+        transform: translateY(50%)
+        transition: color .2s, background-color .2s, border-color .2s
+        &:before
+            content: 'N/A= NÃO SE APLICA'
+            color: $cinza4
+            font-size: res(16)
+            line-height: calc(18 / 16)
+            letter-spacing: letterSpacing(10)
+            width: res(80)
+            position: absolute
+            right: calc(100% + 3vw)
+            top: 50%
+            transform: translateY(-50%)
+
+select
+    appearance: none
+    font-size: res(26)
+    letter-spacing: letterSpacing(50)
+    font-family: $metric
+    border: 1px solid $cinza1
+    outline: none
+    color: $preto
+    overflow-x: hidden
+    overflow-y: auto
+    padding: res(30) res(35)
+    // padding: 0
+    width: res(250)
+    margin-bottom: res(30)
+    background-color: transparent
+    transition: background-color .2s, border-color .2s
+    display: none
+    option
+        white-space: pre-wrap
+
+
+textarea
+    width: 100%
+    height: res(360)
+    background-color: $cinza5
+    padding: res(47) res(54)
+    resize: none
+    border: none
+    font-size: res(25.5)
+    color: $preto
+    outline: none
+    margin-bottom: res(90)
+
+.wrap_opt
+    width: res(260)
+    margin-bottom: res(30)
+    .opcao
+        border 1px solid $cinza1
+        padding: res(10) res(25)
+        font-size: res(25)
+        line-height: calc(30 / 26)
+        text-align: left
+        letter-spacing: letterSpacing(50)
+        height:res(100)
+        display: flex
+        align-items: center
+    input:checked ~ select
+        display: block
+
+[lang="es"],
+[lang="en"]
+    label
+        &.nao_aplica
+            &:before
+                content: ''
+
+

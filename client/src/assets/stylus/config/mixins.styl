@@ -1,0 +1,133 @@
+$base = 640
+$baseTab = 768
+$baseDesk = 1280
+
+font-url(file)
+  return '../fonts/' + file
+
+webfont(family, file, weight = 'normal', hack-chrome-windows = false)
+  @font-face
+    font-family family
+    src url(font-url(file + '.woff2')) format('woff2'),
+        url(font-url(file + '.woff')) format('woff')
+    font-weight weight
+    font-style normal
+  if hack-chrome-windows
+    @media screen and (-webkit-min-device-pixel-ratio:0)
+      @font-face
+        font-family family
+        src url(font-url(file + '.svg#'+ family)) format('svg')
+
+
+lineHeight(value, fsize)
+  v =  ceil( (value / fsize), 3 )// px to em
+  line-height unit(v, em)
+
+//use: +placeholder()
+placeholder()
+  &::-webkit-input-placeholder
+    {block}
+  &:-moz-placeholder
+    {block}
+  &::-moz-placeholder
+    {block}
+  &:-ms-input-placeholder
+    {block}
+
+shadow()
+  box-shadow: 0px 24px 60px rgba(0, 0, 0, 0.07)
+
+/**
+ * An arrow mixin for Stylus, based on @shojberg's "cssarrowplease.com"
+ * @param {Position} position
+ * @param {size, color} arrow
+ * @param {size, color} border (optional)
+ * ex: arrow(top, 10px white, 3px red)
+ */
+arrow(position, arrow, border = 0 white)
+  // Resolve arguments
+  $arrowSize = arrow[0]
+  $arrowColor = arrow[1]
+  $borderWidth = border[0]
+  $borderColor = border[1]
+
+  $oppositePosition = opposite-position(position)
+
+  // Base CSS
+  // position: relative
+  // background: $arrowColor
+
+  // Selector generation
+  $selectors = "&:after"
+  if $borderWidth > 0
+    $selectors = $selectors + ", &:before"
+
+  // Arrow position
+  {$selectors}
+    {$oppositePosition}: 100%
+
+    // Offset
+    if position in (top bottom)
+      left: 50%
+    else
+      top: 50%
+
+    border: solid transparent
+    content: " "
+    height: 0
+    width: 0
+    // position: absolute
+    display inline-block
+    pointer-events: none
+
+  // The arrow itself
+  &:after
+    border-color: rgba(white, 0) // transparent
+    border-{$oppositePosition}-color: $arrowColor
+    border-width: $arrowSize
+
+    // if position in (top bottom)
+    //   margin-left: (- @border-width)
+    // else
+    //   margin-top: (- @border-width)
+
+  // The border
+  if $borderWidth > 0
+    &:before
+      border-color: rgba(white, 0) // transparent
+      border-{$oppositePosition}-color: $borderColor
+      border-width: $arrowSize + $borderWidth
+
+      if position in (top bottom)
+        margin-left: (- @border-width)
+      else
+        margin-top: (- @border-width)
+
+res(val)
+  t = (val * 100) / $base
+  return unit(t, vw)
+
+resTab(val)
+  t = (val * 100) / $baseTab
+  return unit(t, vw)
+
+resDesk(val)
+  t = (val * 100) / $baseDesk
+  return unit(t, vw)
+
+resInd(val, base)
+  t = (val * 100) / base
+  return unit(t, vw)
+
+letterSpacing(val)
+  t = (val / 1000)
+  return unit(t, em)
+
+//use: +mobile()
+tablet()
+  @media screen and (min-width: 768px)
+    {block}
+
+desktop()
+  @media screen and (min-width: 1000px)
+    {block}

@@ -1,0 +1,27 @@
+.btn
+    text-transform: uppercase
+    color: $preto
+    display inline-block
+    border: none
+    position relative
+    z-index 1
+    overflow hidden
+    background-color: $amarelo
+    font-family: $metric
+    font-weight: 500
+    font-size: res(24)
+    letter-spacing: letterSpacing(50)
+    border-radius: res(100)
+    padding: res(27) res(100)
+    transition: box-shadow 150ms, border-width 150ms
+    &.finalizar
+        margin-top: res(148)
+    &.btn_verde
+        background-color: $verde
+        color: $branco
+    +desktop()
+        font-size: 17px
+        padding: 20px 78px
+        &.finalizar
+            margin-top: 85px
+

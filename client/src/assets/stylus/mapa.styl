@@ -1,4 +1,17 @@
+@import 'nib'
+
+global-reset()
+
 #mapa
-    background: #000
+    // background: #000
     width: 100%
     height: 100%
+
+.leaflet-default-icon-path
+	background-image url(https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png)
+	overflow hidden
+
+.leaflet-tooltip
+	strong
+		font-weight: 700
+		font-size: res(25)

@@ -5,7 +5,6 @@
 </template>
 
 <style lang="stylus">
-global-reset()
 html, body
   width 100%
   height 100%
