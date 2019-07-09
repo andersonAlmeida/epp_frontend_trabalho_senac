@@ -1,6 +1,6 @@
 const integracao = {
 	api: "https://epp2019.herokuapp.com",
-	// api: "http://localhost:8000/cms",
+	// api: "http://localhost:8000",
 	token: localStorage.getItem("epp_usr_tk"),
 	options: null,
 
@@ -55,6 +55,11 @@ const integracao = {
 		return integracao.connect(integracao.api + "/cliente/login", integracao.options);
 	},
 
+	// cliente
+	getCliente: (id) => {
+		return integracao.connect(integracao.api + "/cliente/" + id, integracao.options);
+	},
+
 	// Atrações
 	getAtracoes: () => {
 		return integracao.connect(integracao.api + "/cms/atracao", integracao.options);
@@ -71,6 +76,11 @@ const integracao = {
 
 	getCategoria: (id) => {
 		return integracao.connect(integracao.api + "/categoria/" + id, integracao.options);
+	},
+
+	// Avaliação
+	salvaAvaliacao: () => {
+		return integracao.connect(integracao.api + "/avaliacao/", integracao.options);
 	}
 
 };

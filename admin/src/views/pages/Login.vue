@@ -91,13 +91,14 @@ export default {
       res.then(r => {
         if (r) {
           api.token = r.token;
-          
+
           localStorage.setItem("epp_adm_tk", r.token);
           localStorage.setItem("epp_adm_name", r.nome);
           localStorage.setItem("epp_adm_email", r.email);
 
-                    
-          this.$router.push("/atracoes");
+          setTimeout(() => {
+            this.$router.push("/atracoes");
+          },1000);
         }
       });
     }

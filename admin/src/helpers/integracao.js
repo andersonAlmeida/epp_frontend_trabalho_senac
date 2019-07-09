@@ -26,13 +26,13 @@ const integracao = {
 		return fetch(url, headers).then(x => {
 
 			switch( x.status ) {
-				// se não é autorizado 
+				// se não é autorizado
 				case 401:
 					// limpa o token salvo se existir
 					localStorage.removeItem("epp_adm_tk");
 					localStorage.removeItem("epp_adm_name");
 					localStorage.removeItem("epp_adm_email");
-		
+
 					// redireciona para a página de login
 					window.location = "/login";
 				break
@@ -45,7 +45,7 @@ const integracao = {
 					window.location = "/500";
 				break;
 			}
-			
+
 			return x.json()
 		}).catch(error => console.log('An error ocurred in your fetch request: ' + error.message));
 	},

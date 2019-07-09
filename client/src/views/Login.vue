@@ -38,6 +38,7 @@ export default {
             localStorage.setItem("epp_usr_tk", r.token);
             localStorage.setItem("epp_usr_name", r.nome);
             localStorage.setItem("epp_usr_email", r.email);
+            localStorage.setItem("epp_usr_cod", r.codigo);
 
             this.$router.push("/");
           } else {

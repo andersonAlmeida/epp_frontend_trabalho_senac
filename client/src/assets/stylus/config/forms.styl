@@ -1,3 +1,6 @@
+@import 'nib'
+@import 'mixins'
+@import 'colors'
 input
     border: none
     outline: none
@@ -10,16 +13,16 @@ input
     &[type='range']
         appearance: none
         width: 100%
-        margin-top: res(70)
+        margin-top: 0
         &::-webkit-slider-thumb
             appearance: none
             display: block
             border: 2px solid $amarelo
             background-color: $amarelo
             box-shadow: 0 0 0 2vw $branco inset
-            width: res(69)
+            width: res(40)
             height: @width
-            border-radius: res(69)
+            border-radius: res(40)
             transform: translateY(-50%)
         &::-webkit-slider-runnable-track
             height 2px

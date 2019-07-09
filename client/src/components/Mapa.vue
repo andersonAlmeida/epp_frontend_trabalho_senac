@@ -22,10 +22,11 @@ export default {
 	},
 	mounted() {
 		// console.log( this.user_location );
+		let self = this;
 
 		let tm = setInterval(  () => {
-			if( typeof this.user_location === 'object' ) {
-				this.iniciaMapa( this.user_location );
+			if( self.user_location ) {
+				self.iniciaMapa( self.user_location );
 				clearInterval(tm);
 			}
 		}, 100);
@@ -62,10 +63,9 @@ export default {
 
 		adicionaMarcadores() {
 			this.atracoes.forEach( item => {
-			// let len = this.atracoes.length;
 
-			// for(let i=0; i < len; i++){
-			// 	let item = this.atracoes[i];
+				console.log(item);
+
 				let marker = L.marker([item.lat, item.lng], {
 					title: item.nome,
 				}).addTo( this.mapa );
@@ -74,8 +74,9 @@ export default {
 
 				marker.bindTooltip(`<strong>${item.nome}</strong><br><p>${item.descricao}</p>`);
 
-				marker.on('click', function(e) {
-					console.log("esse é o marcador: ", e.sourceTarget.extraData);
+				marker.on('click', (e) => {
+					// console.log("esse é o marcador: ", e.sourceTarget.extraData);
+					this.emitToParent(e);
 				});
 			});
 
@@ -84,8 +85,15 @@ export default {
 		pegaLocalizacaoUsuario() {
 			navigator.geolocation.getCurrentPosition( (position) => {
 				// console.log( position.coords );
+				if( !position ) {
+					alert("Não foi possível pegar a localização");
+					return false;
+				}
 				this.user_location = position.coords;
 			});
+		},
+		emitToParent (e) {
+			this.$emit('enviaMarcador', e);
 		}
 	},
 };

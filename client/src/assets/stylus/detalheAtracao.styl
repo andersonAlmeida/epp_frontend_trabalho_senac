@@ -1,0 +1,155 @@
+@import 'nib'
+@import 'config/*'
+
+global-reset()
+
+*
+	box-sizing: border-box
+
+#atracao_detalhe
+	position absolute
+	top 0
+	left 0
+	background-color #030f23
+	width: 100%
+	height 100vh
+	color: #fff
+	font-size: res(24)
+	visibility: hidden
+	opacity 0
+	transform: translateY(50%)
+	z-index 0
+	transition: opacity .4s, transform .4s ease-out, visibility 0.01ms linear .4s, z-index 0.01ms linear .4s
+	&.show
+		z-index 9999
+		opacity 1
+		visibility: visible
+		transform: translateY(0)
+		transition: opacity .4s, transform .4s ease-out, visibility 0.01ms, z-index 0.01ms
+	.topo
+		position relative
+		height 150px
+		overflow hidden
+		figure, img
+			width: 100%
+			display: inline-block
+			margin: 0
+		.voltar
+			color #ffffff
+			font-weight: 700
+			text-transform: uppercase
+			background: none
+			border none
+			position absolute
+			top res(20)
+			left res(20)
+	#container-form
+		position absolute
+		padding: res(20)
+		top 0
+		left 0
+		width 100%
+		height 100%
+		background-color #030f23
+		display: none
+		&.show
+			display: block
+		.form-field + .form-field
+			margin-top: res(50)
+		label
+			margin-bottom: res(30)
+			strong
+				font-size: res(36)
+		.btn
+			float left
+			width 40%
+			padding res(40) 0
+			text-align: center
+			& + .btn
+				float right
+	.conteudo
+		text-align: left
+		padding: res(20)
+		min-height calc(100vh - 150px)
+		display: flex
+		flex-wrap: wrap
+		overflow-y: auto
+		position relative
+	.atracao_nome
+		color #ffffff
+		font-size: res(46)
+		text-transform: uppercase
+		font-weight: 700
+		margin-bottom: res(10)
+		width: 100%
+	.sec-ttl
+		font-size: res(32)
+		font-weight: 700
+		margin: res(20) 0
+	.descricao
+		width: 100%
+	.avaliacoes
+		align-self: flex-end
+		width: 100%
+		.sec-ttl
+			display inline-block
+		.avaliar
+			border: none
+			border-radius: 5px
+			color: #ffffff
+			background-color: #14af20
+			font-weight: 700
+			line-height: 1
+			padding: res(15) res(25)
+			text-transform: uppercase
+		.topo
+			display: flex
+			justify-content: space-between
+			height auto
+			align-items: flex-start
+	.avaliacoes-slider
+		margin-top: res(50)
+		overflow-x auto
+		white-space nowrap
+		padding: 0 res(50)
+	.avaliacao
+		background-color: #fff
+		color: #000
+		position relative
+		border-radius 10px
+		width: res(540)
+		height: res(240)
+		margin: 0 auto
+		padding: res(20) 0
+		display inline-block
+		& + .avaliacao
+			margin-left: res(50)
+		.avaliacao-imgs
+			width: res(160)
+			height @width
+			border-radius: 10px
+			overflow hidden
+			margin: 0
+			position relative
+			left 0
+			display: inline-block
+			margin-left res(-40)
+			vertical-align: middle
+			img
+				width: 100%
+				display: inline-block
+		.conteudo-texto
+			vertical-align: middle
+			display: inline-block
+			max-width 70%
+			margin-left: res(20)
+			overflow-y: auto
+			height 100%
+			.nome
+				font-size: res(32)
+				font-weight: 700
+			.nota
+				font-weight: 700
+				margin: res(10) 0 res(20)
+
+

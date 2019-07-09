@@ -96,11 +96,6 @@ export default new Router({
       },
       children: [
         {
-          path: '404',
-          name: 'Page404',
-          component: Page404
-        },
-        {
           path: '500',
           name: 'Page500',
           component: Page500
